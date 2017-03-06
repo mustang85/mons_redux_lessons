@@ -19,7 +19,23 @@ const playlist = (state = [], action) => {
 
 const store = createStore(playlist);
 
-store.subscribe(() => { console.log('subscribe', store.getState()) });
+const addTrackBtn = document.querySelector('.addTrack');
+const trackInput = document.querySelector('.trackInput');
+const list = document.querySelector('.list');
+
+store.subscribe(() => {
+  list.innerHTML = '';
+  trackInput.value = '';
+  store.getState().forEach(trackName => {
+    const li = document.createElement('li');
+    li.textContent = trackName;
+    list.appendChild(li);
+  })
+});
 
 store.dispatch({ type: 'ADD_TRACK', payload: 'Smells like teen spirit' });
 store.dispatch({ type: 'ADD_TRACK', payload: 'Enter Sandman' });
+
+addTrackBtn.addEventListener('click', () => {
+    store.dispatch({ type: 'ADD_TRACK', payload: trackInput.value });
+})
