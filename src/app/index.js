@@ -4,9 +4,12 @@ import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import thunk from 'redux-thunk';
+import { Router, Route, hashHistory } from 'react-router';
 
 import reducer from '../reducers'
 import App from './App';
+import About from './About';
+import Root from './Root';
 
 // const initialState = {
 //   tracks: [
@@ -40,7 +43,12 @@ const store = createStore(reducer, composeWithDevTools(applyMiddleware(thunk)));
 
 ReactDOM.render(
   <Provider store={store}>
-    <App />
+    <Router history={hashHistory}>
+      <Route path="/" component={Root}>
+        <Route path="app" component={App} />
+        <Route path="about" component={About} />
+      </Route>
+    </Router>
   </Provider>,
   document.getElementById('root')
 );
