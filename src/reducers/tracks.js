@@ -1,7 +1,4 @@
-const initialState = [
-  'Smells like teen spirit',
-  'Enter Sandman'
-];
+const initialState = [];
 
 export default (state = initialState, action) => {
   if (action.type === 'ADD_TRACK') {
