@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
+import { asyncGetTracks } from '../actions/tracks';
+
 import './style.css';
 
 class App extends Component {
@@ -17,7 +19,7 @@ class App extends Component {
   }
 
   render() {
-    const { tracks } = this.props;
+    const { tracks, onGetTracks } = this.props;
 
     return (
       <div className="container">
@@ -31,11 +33,18 @@ class App extends Component {
           <button className="addTrack" onClick={this.findTrack}>Find track</button>
         </div>
 
+        <div>
+          <button onClick={onGetTracks}>Get track</button>
+        </div>
+
+
         <ul className="list">
           {tracks.map(({ name, id }) =>
             <li key={id}>{name}</li>
           )}
         </ul>
+
+
       </div>
     );
   }
@@ -57,6 +66,10 @@ export default connect(
 
     onFindTrack: (name) => {
         dispatch({ type: 'FIND_TRACK', payload: name })
+    },
+
+    onGetTracks: () => {
+      dispatch(asyncGetTracks())
     }
   })
 )(App);
