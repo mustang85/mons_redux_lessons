@@ -11,14 +11,14 @@ class App extends Component {
     this.inputTrack.value = '';
   }
   render() {
-    const { testStore } = this.props;
+    const { tracks } = this.props;
 
     return (
       <div className="container">
       <input type="text" className="trackInput" ref={(input) => this.inputTrack = input} />
       <button className="addTrack" onClick={this.addTrack}>Add track</button>
         <ul className="list">
-          {testStore.map((track, id) =>
+          {tracks.map((track, id) =>
             <li key={id}>{track}</li>
           )}
         </ul>
@@ -29,7 +29,7 @@ class App extends Component {
 
 export default connect(
   state => ({
-    testStore: state
+    tracks: state.tracks
   }),
   dispatch => ({
     onAddTrack: (trackName) => {
