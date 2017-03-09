@@ -1,4 +1,9 @@
-const initialState = [];
+const initialState = [
+  {
+    id: 123,
+    name: 'Test track'
+  }
+];
 
 export default (state = initialState, action) => {
   if (action.type === 'ADD_TRACK') {

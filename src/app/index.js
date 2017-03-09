@@ -10,6 +10,9 @@ import reducer from '../reducers'
 import App from './App';
 import About from './About';
 import Root from './Root';
+import Track from './Track';
+
+import { syncHistoryWithStore } from 'react-router-redux';
 
 // const initialState = {
 //   tracks: [
@@ -40,13 +43,15 @@ import Root from './Root';
 // }
 
 const store = createStore(reducer, composeWithDevTools(applyMiddleware(thunk)));
+const history = syncHistoryWithStore(hashHistory, store);
 
 ReactDOM.render(
   <Provider store={store}>
-    <Router history={hashHistory}>
+    <Router history={history}>
       <Route path="/" component={Root}>
         <Route path="app" component={App} />
         <Route path="about" component={About} />
+        <Route path="tracks/:id" component={Track} />
       </Route>
     </Router>
   </Provider>,

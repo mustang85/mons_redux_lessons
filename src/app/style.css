@@ -50,3 +50,9 @@ body {
     text-align: center;
     width: 100%;
 }
+
+a {
+    color: #FFF;
+    text-decoration: none;
+    margin: 0 5px 0 0;
+}

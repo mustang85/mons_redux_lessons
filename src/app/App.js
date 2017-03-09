@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router';
 
 import { asyncGetTracks } from '../actions/tracks';
 
@@ -19,7 +20,8 @@ class App extends Component {
   }
 
   render() {
-    const { tracks, onGetTracks } = this.props;
+    const { tracks, onGetTracks, ownProps } = this.props;
+    console.log('ownProps', ownProps);
 
     return (
       <div className="container">
@@ -40,7 +42,9 @@ class App extends Component {
 
         <ul className="list">
           {tracks.map(({ name, id }) =>
-            <li key={id}>{name}</li>
+            <li key={id}>
+                <Link to={`/tracks/${id}`}>{name}</Link>
+            </li>
           )}
         </ul>
 
@@ -51,8 +55,9 @@ class App extends Component {
 }
 
 export default connect(
-  state => ({
-    tracks: state.tracks.filter(track => track.name.includes(state.filterTracks))
+  (state, ownProps) => ({
+    tracks: state.tracks.filter(track => track.name.includes(state.filterTracks)),
+    ownProps
   }),
   dispatch => ({
     onAddTrack: (name) => {
